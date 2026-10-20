@@ -27,7 +27,7 @@ button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible{outline:3px s
 var CLIENT_KEY="sbaw5swsfxmy8v9abs";
 var REDIRECT="https://vietdai.github.io/callback.html";
 var btn=document.getElementById("go"),note=document.getElementById("note");
-if(CLIENT_KEY==="CLIENT_KEY_SANDBOX_CUA_BAN""){btn.disabled=true;note.textContent="Chưa cấu hình Client key của ứng dụng.";note.hidden=false}
+if(CLIENT_KEY==="CLIENT_KEY_SANDBOX_CUA_BAN"){btn.disabled=true;note.textContent="Chưa cấu hình Client key của ứng dụng.";note.hidden=false}
 btn.addEventListener("click",function(){
  var a=new Uint8Array(16);crypto.getRandomValues(a);
  var state=Array.prototype.map.call(a,function(x){return("0"+x.toString(16)).slice(-2)}).join("");
