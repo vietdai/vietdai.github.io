@@ -1,0 +1,45 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Kết nối TikTok – PiuBaby Studio</title><meta name="robots" content="noindex"><style>:root{--bg:#f5f8f7;--fg:#1d2926;--mut:#566662;--ac:#2f7568;--card:#fff;--bd:#d7e2df}
+@media (prefers-color-scheme:dark){:root{--bg:#141b19;--fg:#e6efec;--mut:#9db0aa;--ac:#6cc3b2;--card:#1c2623;--bd:#2c3b37}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:42rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1{font-size:1.9rem;line-height:1.25;margin:0 0 .5rem}h2{font-size:1.2rem;margin:2rem 0 .4rem}
+p,li{max-width:68ch}a{color:var(--ac)}.mut{color:var(--mut);font-size:.95rem}
+nav{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:3rem;padding-top:1rem;border-top:1px solid var(--bd)}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:1rem 1.25rem;margin:1.25rem 0}
+code{overflow-wrap:anywhere}button{font:inherit;background:var(--ac);color:var(--bg);border:0;border-radius:8px;padding:.6rem 1.2rem;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+#val{display:block;word-break:break-all;margin:.75rem 0}</style></head><body><main>
+<h1>Kết nối TikTok</h1>
+<div id="ok" class="box" hidden>
+<p>Kết nối thành công. Sao chép mã bên dưới và dán vào công cụ trên máy của bạn.</p>
+<code id="val"></code>
+<button id="copy" type="button">Sao chép mã</button>
+<p class="mut">Mã chỉ dùng một lần và hết hạn nhanh. Đừng gửi mã này cho người khác.</p>
+</div>
+<div id="err" class="box" hidden><p id="msg"></p><p><a href="connect.html">Bắt đầu kết nối lại</a></p></div>
+<div id="none" class="box" hidden><p>Trang này nhận kết quả sau khi bạn cấp quyền cho ứng dụng trên TikTok. Hiện chưa có mã nào được trả về. Hãy bắt đầu từ trang <a href="connect.html">Kết nối TikTok</a>.</p></div>
+<nav><a href="index.html">Trang chủ</a><a href="connect.html">Kết nối TikTok</a><a href="terms.html">Điều khoản dịch vụ</a><a href="privacy.html">Chính sách quyền riêng tư</a></nav>
+</main>
+<script>
+(function(){
+var p=new URLSearchParams(location.search);
+var code=p.get("code"),state=p.get("state"),error=p.get("error"),desc=p.get("error_description");
+if(location.search){history.replaceState(null,"",location.pathname)}
+var expected=null;
+try{expected=sessionStorage.getItem("piubaby_oauth_state");sessionStorage.removeItem("piubaby_oauth_state")}catch(e){}
+function show(id){document.getElementById(id).hidden=false}
+function fail(t){document.getElementById("msg").textContent=t;show("err")}
+if(error){fail("Kết nối không thành công: "+(desc||error)+".")}
+else if(code){
+ if(!expected||!state||expected!==state){fail("Mã trạng thái không khớp hoặc đã hết hạn nên mã ủy quyền không được hiển thị. Hãy bắt đầu kết nối lại từ trang Kết nối TikTok, trên cùng một trình duyệt.")}
+ else{
+  document.getElementById("val").textContent=code;show("ok");
+  document.getElementById("copy").addEventListener("click",function(){
+   var b=this;
+   (navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(function(){b.textContent="Đã sao chép"},function(){b.textContent="Hãy chọn mã và sao chép thủ công"});
+  });
+ }
+}else{show("none")}
+})();
+</script></body></html>
