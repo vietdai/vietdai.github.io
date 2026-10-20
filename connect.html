@@ -32,7 +32,7 @@ btn.addEventListener("click",function(){
  var a=new Uint8Array(16);crypto.getRandomValues(a);
  var state=Array.prototype.map.call(a,function(x){return("0"+x.toString(16)).slice(-2)}).join("");
  try{sessionStorage.setItem("piubaby_oauth_state",state)}catch(e){note.textContent="Trình duyệt đang chặn lưu trữ tạm. Hãy tắt chế độ ẩn danh hoặc cho phép lưu trữ rồi thử lại.";note.hidden=false;return}
- var u="https://www.tiktok.com/v2/auth/authorize/?client_key="+encodeURIComponent(CLIENT_KEY)+"&scope="+encodeURIComponent("user.info.basic,video.upload")+"&response_type=code&redirect_uri="+encodeURIComponent(REDIRECT)+"&state="+state;
+ var u="https://www.tiktok.com/v2/auth/authorize/?client_key="+encodeURIComponent(CLIENT_KEY)+"&scope="+encodeURIComponent("user.info.basic")+"&response_type=code&redirect_uri="+encodeURIComponent(REDIRECT)+"&state="+state;
  location.href=u;
 });
 })();
